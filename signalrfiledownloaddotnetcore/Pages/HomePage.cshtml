@@ -1,0 +1,14 @@
+﻿@page
+@model signalrfiledownloaddotnetcore.Pages.HomePageModel
+@{
+}
+@if (TempData["notification"] != null)
+{
+    <div class="alert alert-primary" role="alert">
+    @TempData["notification"]
+</div>
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Signal R File Async Download</p>
+</div>
