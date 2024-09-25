@@ -9,7 +9,7 @@ public class FileDownloadHub : Hub
 
     public async Task NotifyDownloadReady(string userId, string fileUrl)
     {
-        await Clients.Group(userId).SendAsync("DownloadReady", fileUrl);
+        await Clients.User(userId).SendAsync("DownloadReady", fileUrl);
     }
 
 

@@ -9,6 +9,6 @@ public class EmailBasedUserIdProvider : IUserIdProvider
     public string GetUserId(HubConnectionContext connection)
     {
         // Kullanıcının email claim'ini alıyoruz
-        return connection.User?.FindFirst(ClaimTypes.Email)?.Value;
+        return connection.User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
     }
 }

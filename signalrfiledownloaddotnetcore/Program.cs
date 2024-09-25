@@ -14,13 +14,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 #endregion
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
-
-builder.Services.AddHangfire(x => x.UseSqlServerStorage("Server=localhost;Database=googleclosedtest;Persist Security Info=True;User Id=sa;Password=KabaliDatabase123.;TrustServerCertificate=True;"));
+//set your database connection
+builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("LocalConnection")));
 builder.Services.AddHangfireServer();
-builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
+builder.Services.AddSignalR();
+
 
 var app = builder.Build();
 

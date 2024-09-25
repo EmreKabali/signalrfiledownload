@@ -10,6 +10,11 @@ namespace signalrfiledownloaddotnetcore.Pages
     [Authorize]
     public class FileDownloadModel : PageModel
     {
+        private readonly IHubContext<FileDownloadHub> _hubContext;
+        public FileDownloadModel(IHubContext<FileDownloadHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
 
         public void OnGet()
         {
@@ -25,15 +30,12 @@ namespace signalrfiledownloaddotnetcore.Pages
 
 
 
+
         public async Task ProcessFile(string userId)
         {
-            await Task.Delay(6000); // Simulate file processing
+            await Task.Delay(6000);
             string fileUrl = "example.png";
-            var rr = new FileDownloadHub();
-
-
-
-            await rr.NotifyDownloadReady(userId, fileUrl);
+            await _hubContext.Clients.User(userId).SendAsync("DownloadReady", fileUrl);
 
         }
     }

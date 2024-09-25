@@ -18,9 +18,7 @@ namespace signalrfiledownloaddotnetcore.Pages
             var claims = new List<Claim>
 {
     new Claim(ClaimTypes.Email, Email),
-    new Claim(ClaimTypes.Name, "Osman"),
-     new Claim("FullName","Kabalı" ),
-        new Claim("Number", "555"),
+    new Claim(ClaimTypes.Name, UserName),
 };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -41,7 +39,7 @@ namespace signalrfiledownloaddotnetcore.Pages
         public string Email { get; set; }
 
         [BindProperty]
-        public string Password { get; set; }
+        public string UserName { get; set; }
     }
 
 

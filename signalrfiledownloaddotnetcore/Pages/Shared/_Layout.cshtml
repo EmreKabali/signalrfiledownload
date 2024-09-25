@@ -28,6 +28,18 @@
                         </li>
 
                     </ul>
+                    <div class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span class="navbar-text text-dark">@User.Identity.Name</span>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Logout">Sign out</a>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Login">Sign in</a>
+                        }
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -40,7 +52,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - signalrfiledownloaddotnetcore - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2024 - signalrfiledownloaddotnetcore <a href="https://emrekabali.medium.com/">For Support</a>
         </div>
     </footer>
 
@@ -48,27 +60,24 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
-        const userId = "tempUserId123";
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("/FileDownloadHub")
             .build();
 
 
         connection.on("DownloadReady", function (fileUrl) {
-            // Dosyayı otomatik indirmeyi tetikleyen kod
-            console.log("ewnne");
-            console.log(fileUrl);
+            //the code is triggering automatic file download
             const link = document.createElement('a');
             link.href = fileUrl;
-            link.download = fileUrl.split('/').pop(); // Dosya adı için URL'nin son kısmını kullan
+            link.download = fileUrl.split('/').pop();
             document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link); // Gereksiz linki DOM'dan kaldır
+            document.body.removeChild(link);
         });
 
-        // SignalR bağlantısını başlat
+        // start SignalR  connection
         connection.start().then(function () {
-            console.log("SignalR bağlantısı kuruldu");
+            console.log("SignalR connection started");
         }).catch(function (err) {
             console.error(err.toString());
         });
